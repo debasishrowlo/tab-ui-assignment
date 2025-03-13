@@ -12,6 +12,6 @@ npm run build
 # Running Tests
 ```
 npx cypress open
-Start component Testing
+Start "Component Testing"
 Run App.cy.tsx
 ```
