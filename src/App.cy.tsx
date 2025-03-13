@@ -1,4 +1,4 @@
-import React from 'react'
+//@ts-nocheck
 import App from './App'
 
 describe('<App />', () => {
