@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  --spacing: calc(1rem / 16);
+}
+
+@utility text-* {
+  font-size: calc(--value(integer) * calc(1rem / 16));
+}
+
+@utility rounded-* {
+  border-radius: calc(--value(integer) * calc(1rem / 16));
+}
+
+@utility rounded-l-* {
+  border-top-left-radius: calc(--value(integer) * calc(1rem / 16));
+  border-bottom-left-radius: calc(--value(integer) * calc(1rem / 16));
+}
+
+@utility rounded-r-* {
+  border-top-right-radius: calc(--value(integer) * calc(1rem / 16));
+  border-bottom-right-radius: calc(--value(integer) * calc(1rem / 16));
+}
