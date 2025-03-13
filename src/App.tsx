@@ -1,13 +1,13 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import classnames from "classnames"
 
-type Tab = {
+export type TabProps = {
   buttonText: string,
   heading: string,
   paragraph: string,
 }
 
-const Tabs = ({ tabs } : { tabs: Tab[] }) => {
+const Tabs = ({ tabs } : { tabs: TabProps[] }) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0)
   const activeTab = tabs[activeTabIndex]
 
@@ -18,34 +18,61 @@ const Tabs = ({ tabs } : { tabs: Tab[] }) => {
   return (
     <>
       <div className="mt-32 flex" role="tablist">
-        {tabs.map((tab, index) => {
-          const isActive = activeTabIndex === index
-
-          // TODO: move focus out of tablist when a tab is focussed
-          // TODO: Arrow key navigation as per https://www.w3.org/WAI/ARIA/apg/patterns/tabs/#keyboardinteraction
-
-          return (
-            <button 
-              type="button"
-              onClick={() => handleClick(index)}
-              key={index}
-              className={classnames("w-1/3 pt-25 pb-20 pl-28 border border-sky-900/20 border-b-5 hover:border-b-sky-800 focus:outline-4 focus:outline-dotted outline-sky-800 active:bg-indigo-100 text-left font-bold text-18 text-sky-950 shadow-md first:rounded-l-16 last:rounded-r-16 cursor-pointer transition-all duration-300", {
-                "border-b-transparent": !isActive,
-                "border-b-sky-800": isActive,
-              })}
-              role="tab"
-              aria-selected={isActive}
-            >
-              {tab.buttonText}
-            </button>
-          )
-        })}
+        {tabs.map((tab, index) => (
+          <Tab 
+            key={index}
+            isActive={activeTabIndex === index}
+            handleClick={() => handleClick(index)}
+          >
+            {tab.buttonText}
+          </Tab>
+        ))}
       </div>
       <div className="mt-48" role="tabpanel">
-        <p className="text-center text-32 font-bold text-sky-950">{activeTab.heading}</p>
-        <p className="mt-24 text-center text-18 text-sky-950">{activeTab.paragraph}</p>
+        <Heading>{activeTab.heading}</Heading>
+        <Paragraph>{activeTab.paragraph}</Paragraph>
       </div>
     </>
+  )
+}
+        
+const Heading = ({ children } : { children: React.ReactNode }) => {
+  return (
+    <p className="text-center text-32 font-bold text-sky-950">{children}</p>
+  )
+}
+
+const Paragraph = ({ children } : { children: React.ReactNode }) => {
+  return (
+    <p className="mt-24 text-center text-18 text-sky-950">{children}</p>
+  )
+}
+
+const Tab = ({
+  isActive,
+  children,
+  handleClick,
+} : {
+  isActive: boolean,
+  children: React.ReactNode,
+  handleClick: React.MouseEventHandler<HTMLButtonElement>,
+}) => {
+  // TODO: move focus out of tablist when a tab is focussed
+  // TODO: Arrow key navigation as per https://www.w3.org/WAI/ARIA/apg/patterns/tabs/#keyboardinteraction
+
+  return (
+    <button 
+      type="button"
+      onClick={handleClick}
+      className={classnames("w-1/3 pt-25 pb-20 pl-28 border border-sky-900/20 border-b-5 hover:border-b-sky-800 focus:outline-4 focus:outline-dotted outline-sky-800 active:bg-indigo-100 text-left font-bold text-18 text-sky-950 shadow-md first:rounded-l-16 last:rounded-r-16 cursor-pointer transition-all duration-300", {
+        "border-b-transparent": !isActive,
+        "border-b-sky-800": isActive,
+      })}
+      role="tab"
+      aria-selected={isActive}
+    >
+      {children}
+    </button>
   )
 }
 
