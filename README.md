@@ -11,7 +11,7 @@ npm run build
 
 # Running Tests
 ```
-npx cypress open
-Start "Component Testing"
-Run App.cy.tsx
+npm run test
+Choose a browser to run the tests from
+Run the file "App.cy.tsx"
 ```
