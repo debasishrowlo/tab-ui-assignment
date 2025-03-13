@@ -1,8 +1,6 @@
 # Live Preview Url
 
-```
 https://gregarious-frangipane-8452b8.netlify.app/
-```
 
 # Build Steps
 
